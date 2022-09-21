@@ -1,0 +1,28 @@
+version: "3.9"
+services:
+  app:
+    build: .
+    depends_on:
+      - mysql
+    restart: "no"
+    ports:
+      - "8980:80"
+      - "8943:443"
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+
+  mysql:
+    image: mysql:8.0
+    restart: "no"
+    volumes:
+      - mysql:/var/lib/mysql
+    ports:
+      - "3386:3306"
+    env_file:
+      - .env
+
+volumes:
+  mysql:
+    driver: local
